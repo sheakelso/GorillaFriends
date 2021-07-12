@@ -1,0 +1,24 @@
+
+{
+    "_QPVersion": "0.1.1",
+    "name": "Gorilla Friends",
+    "id": "gorillafriends",
+    "author": "Boopety Doopety",
+    "version": "0.1.0",
+    "packageId": "com.AnotherAxiom.GorillaTag",
+    "packageVersion": "1.0.9",
+    "description": "Gorilla Friends port for quest.",
+    "modFiles": [
+        "libgorillafriends.so"
+    ],
+    "libraryFiles": [
+        "libbeatsaber-hook_1_3_5.so"
+    ],
+    "dependencies": [
+        {
+            "id": "MonkeComputer",
+            "version": ">=1.5.2",
+            "downloadIfMissing": "https://github.com/RedBrumbler/MonkeComputer/releases/download/1.5.2/MonkeComputer.qmod"
+        }
+    ]
+}
