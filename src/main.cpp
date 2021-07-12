@@ -72,17 +72,19 @@ GorillaFriends::FriendButton* m_pFriendButtonController;
 
 MAKE_HOOK_OFFSETLESS(GSB_Awake, void, GlobalNamespace::GorillaScoreBoard* self)
 {
-    GorillaFriends::WebVerified::m_listCurrentSessionFriends.clear();
+    if(m_pScoreboardFriendBtn != nullptr)
+    {
+		// Friend Button prefab has been created, skip our code
+        GSB_Awake(self);
+        return;
+    }
+	// I think we dont need it here:
+    // GorillaFriends::WebVerified::m_listCurrentSessionFriends.clear();
     getLogger().info("GSB_AWAKE");
     auto transform = self->scoreBoardLinePrefab->get_transform();
     int transformNum = transform->get_childCount();
-    for(int i = 0; i < transformNum; i++)
+    for(int i = 0; i < transformNum; ++i)
     {
-        if(m_pScoreboardFriendBtn != nullptr)
-        {  
-            GSB_Awake(self);
-            return;
-        }
         getLogger().info("ooga");
         auto t = transform->GetChild(i);
         if(to_utf8(csstrtostr(t->get_name())) == "Mute Button")
@@ -104,14 +106,19 @@ MAKE_HOOK_OFFSETLESS(GSB_Awake, void, GlobalNamespace::GorillaScoreBoard* self)
                     m_pFriendButtonController->myText = controller->myText;
                     m_pFriendButtonController->myText->set_text(m_pFriendButtonController->offText);
                     m_pFriendButtonController->offMaterial = controller->offMaterial;
+					/* Maybe we need to instantiate onMaterial, please check */
                     m_pFriendButtonController->onMaterial = controller->onMaterial;
                     m_pFriendButtonController->onMaterial->set_color(UnityEngine::Color(0.8f, 0.5f, 0.9f, 1.0f));
 
                     UnityEngine::GameObject::Destroy(controller);
                 }
             }
+			// We're added a Friend Button! Break our "for loop"
+			break;
         }
     }
+	// Call original function
+    GSB_Awake(self);
 }
 
 MAKE_HOOK_OFFSETLESS(PN_Disconnect, void, Photon::Pun::PhotonNetwork* self)
