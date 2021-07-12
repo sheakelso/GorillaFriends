@@ -137,14 +137,28 @@ void GorillaFriends::FriendButton::OnTriggerEnter(UnityEngine::Collider* collide
         return;
     }
 
-    int listsize = GorillaFriends::WebVerified::m_listCurrentSessionFriends.size();
+    /* Remove from list */
+    auto it = GorillaFriends::WebVerified::m_listCurrentSessionFriends.begin();
+    auto end = GorillaFriends::WebVerified::m_listCurrentSessionFriends.end();
+    while( it != end )
+    {
+        if(*it == to_utf8(csstrtostr(parentLine->linePlayer->UserId)))
+        {
+            GorillaFriends::WebVerified::m_listCurrentSessionFriends.erase(it);
+            break;
+        }
+        ++it;
+    }
+    /*int listsize = GorillaFriends::WebVerified::m_listCurrentSessionFriends.size();
     for(int i = 0; i < listsize; ++i)
     {
         if(GorillaFriends::WebVerified::m_listCurrentSessionFriends[i] == to_utf8(csstrtostr(parentLine->linePlayer->UserId)))
         {
             GorillaFriends::WebVerified::m_listCurrentSessionFriends.erase(GorillaFriends::WebVerified::m_listCurrentSessionFriends.begin() + i - 1);
         }
-    }
+    }*/
+    /* Remove from list */
+
     UnityEngine::PlayerPrefs::SetInt(il2cpp_utils::createcsstr(to_utf8(csstrtostr(parentLine->linePlayer->UserId)) + "_friend"), 0);
     //myText->set_text(offText);
 
