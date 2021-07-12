@@ -22,7 +22,8 @@ UnityEngine::Color m_clrVerifiedColor = UnityEngine::Color(0.5f, 1.0f, 0.5f, 1.0
 static bool IsVerified(std::string userID)
 {
     il2cpp_utils::getLogger().info("Checking if player is verified");
-    for(int i = 0; i < GorillaFriends::WebVerified::verifiedUserIds.size(); i++)
+    int listsize = GorillaFriends::WebVerified::verifiedUserIds.size();
+    for(int i = 0; i < listsize; i++)
     {
         if(GorillaFriends::WebVerified::verifiedUserIds[i] == userID) return true;
     }
@@ -37,7 +38,8 @@ static bool IsFriend(std::string userID)
 
 static bool IsInFriendList(std::string userID)
 {
-    for(int i = 0; i < GorillaFriends::WebVerified::m_listCurrentSessionFriends.size(); i++)
+    int listsize = GorillaFriends::WebVerified::m_listCurrentSessionFriends.size();
+    for(int i = 0; i < listsize; i++)
     {
         if(GorillaFriends::WebVerified::m_listCurrentSessionFriends[i] == userID) return true;
     }
@@ -77,7 +79,7 @@ void GorillaFriends::FriendButton::Update()
                 if(!IsInFriendList(to_utf8(csstrtostr(parentLine->linePlayer->UserId)))) GorillaFriends::WebVerified::m_listCurrentSessionFriends.push_back(to_utf8(csstrtostr(parentLine->linePlayer->UserId)));
                 parentLine->playerName->set_color(m_clrFriendColor);
                 isOn = true;
-                myText->set_text(onText);
+                //myText->set_text(onText);
                 UpdateColor();
             }
             else
@@ -104,13 +106,13 @@ void GorillaFriends::FriendButton::Update()
                 parentLine->playerName->set_color(UnityEngine::Color::get_white());
                 parentLine->playerVRRig->playerText->set_color(UnityEngine::Color::get_white());
             }
-            myText->set_text(onText);
+            //myText->set_text(offText);
         }
         else
         {
             parentLine->playerName->set_color(m_clrFriendColor);
             parentLine->playerVRRig->playerText->set_color(m_clrFriendColor);
-            myText->set_text(onText);
+            //myText->set_text(onText);
         }
     }
 }
@@ -131,11 +133,12 @@ void GorillaFriends::FriendButton::OnTriggerEnter(UnityEngine::Collider* collide
         GorillaFriends::WebVerified::m_listCurrentSessionFriends.push_back(to_utf8(csstrtostr(parentLine->linePlayer->UserId)));
         UnityEngine::PlayerPrefs::SetInt(il2cpp_utils::createcsstr(to_utf8(csstrtostr(parentLine->linePlayer->UserId)) + "_friend"), 1);
         parentLine->playerName->set_color(m_clrFriendColor);
-        myText->set_text(onText);
+        //myText->set_text(onText);
         return;
     }
 
-    for(int i = 0; i < GorillaFriends::WebVerified::m_listCurrentSessionFriends.size(); i++)
+    int listsize = GorillaFriends::WebVerified::m_listCurrentSessionFriends.size();
+    for(int i = 0; i < listsize; i++)
     {
         if(GorillaFriends::WebVerified::m_listCurrentSessionFriends[i] == to_utf8(csstrtostr(parentLine->linePlayer->UserId)))
         {
@@ -143,7 +146,7 @@ void GorillaFriends::FriendButton::OnTriggerEnter(UnityEngine::Collider* collide
         }
     }
     UnityEngine::PlayerPrefs::SetInt(il2cpp_utils::createcsstr(to_utf8(csstrtostr(parentLine->linePlayer->UserId)) + "_friend"), 0);
-    myText->set_text(offText);
+    //myText->set_text(offText);
 
     if(IsVerified(to_utf8(csstrtostr(parentLine->linePlayer->UserId))))
     {
