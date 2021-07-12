@@ -83,7 +83,7 @@ MAKE_HOOK_OFFSETLESS(GSB_Awake, void, GlobalNamespace::GorillaScoreBoard* self)
     getLogger().info("GSB_AWAKE");
     auto transform = self->scoreBoardLinePrefab->get_transform();
     int transformNum = transform->get_childCount();
-    for(int i = 0; i < transformNum; i++)
+    for(int i = 0; i < transformNum; ++i)
     {
         getLogger().info("ooga");
         auto t = transform->GetChild(i);

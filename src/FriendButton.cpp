@@ -23,7 +23,7 @@ static bool IsVerified(std::string userID)
 {
     il2cpp_utils::getLogger().info("Checking if player is verified");
     int listsize = GorillaFriends::WebVerified::verifiedUserIds.size();
-    for(int i = 0; i < listsize; i++)
+    for(int i = 0; i < listsize; ++i)
     {
         if(GorillaFriends::WebVerified::verifiedUserIds[i] == userID) return true;
     }
@@ -39,7 +39,7 @@ static bool IsFriend(std::string userID)
 static bool IsInFriendList(std::string userID)
 {
     int listsize = GorillaFriends::WebVerified::m_listCurrentSessionFriends.size();
-    for(int i = 0; i < listsize; i++)
+    for(int i = 0; i < listsize; ++i)
     {
         if(GorillaFriends::WebVerified::m_listCurrentSessionFriends[i] == userID) return true;
     }
@@ -138,7 +138,7 @@ void GorillaFriends::FriendButton::OnTriggerEnter(UnityEngine::Collider* collide
     }
 
     int listsize = GorillaFriends::WebVerified::m_listCurrentSessionFriends.size();
-    for(int i = 0; i < listsize; i++)
+    for(int i = 0; i < listsize; ++i)
     {
         if(GorillaFriends::WebVerified::m_listCurrentSessionFriends[i] == to_utf8(csstrtostr(parentLine->linePlayer->UserId)))
         {
